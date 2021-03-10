@@ -1,6 +1,6 @@
 {
-  "short_name": "OpenKart",
-  "name": "create cards for your memories",
+  "short_name": "OpenKard",
+  "name": "create cards for your loved ones",
   "icons": [
     {"src":"/android-chrome-192x192.png","sizes":"192x192","type":"image/png"},
     {"src":"/android-chrome-512x512.png","sizes":"512x512","type":"image/png"}

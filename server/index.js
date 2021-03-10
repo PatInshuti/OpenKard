@@ -5,9 +5,10 @@ const path = require('path');
 const cors = require('cors')
 const bodyParser = require("body-parser");
 const MongoClient = require('mongodb').MongoClient;
-const uri = process.env.OPEN_KARD_DB || "mongodb://localhost:27017";
+const uri = "mongodb://localhost:27017";
 const dbName = "openCard-v1";
-const port = process.env.OPEN_KARD_PORT || 6800;
+const port = 6800;
+
 
 MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }, (err, client) => {
   
@@ -20,12 +21,14 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }, (e
   const db = client.db(dbName);
   const cardsCollection = db.collection('cards');
 
+  app.use(cors())
+  app.use(express.static(path.join(__dirname, '../client/build')));
   app.use(bodyParser.json({limit: '50mb', extended: true}));
 
 
   //*** Begin Routes ***//
   app.all((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", process.env.OPEN_KARD_SERVER || "http://localhost:6800");
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:6800");
     // res.setHeader("Access-Control-Allow-Credentials", "true");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     
@@ -55,8 +58,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }, (e
 
 
   app.get("/api/v1/url/:urlId",(req,res)=>{
-    const urlId = req.params.urlId;
-    
+    const urlId = req.params.urlId;    
     cardsCollection.findOne({viewUrl:urlId},(err,card)=>{
 
       if (card) {
