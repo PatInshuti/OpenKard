@@ -144,6 +144,11 @@ const displayFront = () =>{
 
 }
 
+const openInNewTab = (url) =>{
+  const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
+  if (newWindow) newWindow.opener = null
+}
+
 
 const displayBack = () =>{
 
@@ -198,9 +203,14 @@ const displayBack = () =>{
 
         </div>
 
-        <div className="centered-container" style={{marginTop:"5px"}}>
+        <div className="centered-container" style={{marginTop:"2rem"}}>
           <button className="general-button mode-button" onClick={toggleViewOption}>{ previewMode === true? "Edit mode":"Preview mode"}</button>
           <button className="general-button pubilsh-button" onClick={pulishCard}>Publish</button>
+        </div>
+
+        <div style={{textAlign:"center",marginTop:"2rem"}}>
+          <pre><b>Opensource contribution @ <a href="" onClick={() => openInNewTab('https://github.com/PatInshuti/OpenKard')}>Github</a></b></pre>
+          <pre><b>Made with ❤️‍ by <a href="" onClick={()=>openInNewTab("https://github.com/PatInshuti")}>Patrick</a></b></pre>
         </div>
       </div>
 
